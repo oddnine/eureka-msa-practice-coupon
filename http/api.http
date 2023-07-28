@@ -1,0 +1,7 @@
+POST http://localhost:8000/customer/api/v1/customers
+Content-Type: application/json
+
+{
+  "username": "hyuk",
+  "email": "hyuk@ooo.com"
+}
