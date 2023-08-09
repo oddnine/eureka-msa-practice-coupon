@@ -1,10 +1,6 @@
 package com.practice.gateway.filter;
 
 import com.practice.gateway.util.JwtUtil;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.io.Decoders;
-import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
@@ -15,9 +11,7 @@ import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
 
-import java.security.Key;
 import java.util.List;
-import java.util.Objects;
 
 @Component
 public class AuthenticationFilter extends AbstractGatewayFilterFactory<AuthenticationFilter.Config> {
@@ -27,9 +21,6 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
 
     @Autowired
     private JwtUtil jwtUtil;
-
-    @Value("${jwt.secretKey}")
-    private String secretKey;
 
     public AuthenticationFilter() {
         super(Config.class);
@@ -67,12 +58,6 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
                 System.out.println("Custom Post filter: response code: " + response.getStatusCode());
             }));
         };
-    }
-
-
-    private Key getSignKey() {
-        byte[] keyBytes = Decoders.BASE64.decode(secretKey);
-        return Keys.hmacShaKeyFor(keyBytes);
     }
 
     public static class Config {
