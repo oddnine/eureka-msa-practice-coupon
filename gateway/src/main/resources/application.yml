@@ -18,7 +18,20 @@ spring:
           uri: lb://CUSTOMER
           predicates:
             - Path=/customer/**
+
         - id: coupon
           uri: lb://COUPON
           predicates:
             - Path=/coupon/**
+          filters:
+            - AuthenticationFilter
+
+        - id: identity
+          uri: lb://IDENTITY
+          predicates:
+            - Path=/auth/**
+
+jwt:
+  header: Authorization
+  secretKey: c2lsdmVybmluZS10ZWNoLXNwcmluZy1ib290LWp3dC10dXRvcmlhbC1zZWNyZXQtc2lsdmVybmluZS10ZWNoLXNwcmluZy1ib290LWp3dC10dXRvcmlhbC1zZWNyZXQK
+  token-validity-in-seconds: 86400
