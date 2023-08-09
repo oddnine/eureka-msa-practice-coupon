@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -35,10 +37,15 @@ public class AuthController {
         }
     }
 
-
     @GetMapping("/validate")
-    public ResponseEntity<String> validateToken(@RequestParam("token") String token) {
+    public ResponseEntity<String> validateToken(@RequestHeader("Authorization") String token) {
         authService.validateToken(token);
         return ResponseEntity.ok("토큰이 검증 성공");
+    }
+
+    @GetMapping("/user-info")
+    public ResponseEntity<String> getEmailFromAuthentication(Authentication authentication) {
+        String email = authentication.getName();
+        return ResponseEntity.ok(email);
     }
 }

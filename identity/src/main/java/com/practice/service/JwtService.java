@@ -1,5 +1,6 @@
 package com.practice.service;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
@@ -20,7 +21,8 @@ public class JwtService {
 
 
     public void validateToken(final String token) {
-        Jwts.parserBuilder().setSigningKey(getSignKey()).build().parseClaimsJws(token);
+        String tokenWithoutBearer = token.replace("Bearer ", "");
+        Jwts.parserBuilder().setSigningKey(getSignKey()).build().parseClaimsJws(tokenWithoutBearer);
     }
 
     public String generateToken(String email) {
