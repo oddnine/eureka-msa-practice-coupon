@@ -26,7 +26,7 @@ public class AuthConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.csrf().disable()
                 .authorizeHttpRequests()
-                .antMatchers("/auth/api/register", "/auth/api/token", "/auth/api/validate").permitAll()
+                .antMatchers("/auth/api/register", "/auth/api/login", "/auth/api/validate").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .build();

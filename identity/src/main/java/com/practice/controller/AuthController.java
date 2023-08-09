@@ -25,8 +25,8 @@ public class AuthController {
         return ResponseEntity.ok(authService.saveUser(userCredential));
     }
 
-    @PostMapping("/token")
-    public ResponseEntity<String> getToken(@RequestBody AuthRequest authRequest) {
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@RequestBody AuthRequest authRequest) {
         Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getEmail(), authRequest.getPassword()));
         if (authenticate.isAuthenticated()) {
             return ResponseEntity.ok(authService.generateToken(authRequest.getEmail()));
