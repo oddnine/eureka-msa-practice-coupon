@@ -28,3 +28,7 @@ Content-Type: application/json
 ### JWT 유저 정보 반환
 GET http://localhost:8000/auth/api/validate
 Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoeXVrQG9vby5jb20iLCJpYXQiOjE2OTE1NzU1MzgsImV4cCI6MTY5MTU3NzMzOH0.7ocHR-2tgyN7o0Pi3jk1pwRnVwCLx924WfX-DF08fgo
+
+### 쿠폰 발급
+GET http://localhost:8000/coupon/api/v1/coupon/issue
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoeXVrQG9vby5jb20iLCJpYXQiOjE2OTE1Nzk1OTMsImV4cCI6MTY5MTU4MTM5M30.AvUsjoBcsIHQoQCR0-Bxs2r3JraCmLYYmNrxoc7boEY
