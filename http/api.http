@@ -27,8 +27,8 @@ Content-Type: application/json
 
 ### JWT 유저 정보 반환
 GET http://localhost:8000/auth/api/validate
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoeXVrQG9vby5jb20iLCJpYXQiOjE2OTE2Mjk3MTgsImV4cCI6MTY5MTYzMTUxOH0.uDFmaqFhdhz9Fd5l5RfsZjLJWxivNLcSsBpK-a7ocLM
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoeXVrQG9vby5jb20iLCJpYXQiOjE2OTE2NDE1OTIsImV4cCI6MTY5MTY0MzM5Mn0.SJ4TzlLW5Y-o1NK7uJXmaxbZY5tjo_iBseTkobo3BBc
 
 ### 쿠폰 발급
 POST http://localhost:8000/coupon/api/v1/coupon/issue
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoeXVrQG9vby5jb20iLCJpYXQiOjE2OTE2Mjk3MTgsImV4cCI6MTY5MTYzMTUxOH0.uDFmaqFhdhz9Fd5l5RfsZjLJWxivNLcSsBpK-a7ocLM
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoeXVrQG9vby5jb20iLCJpYXQiOjE2OTE2NDE1OTIsImV4cCI6MTY5MTY0MzM5Mn0.SJ4TzlLW5Y-o1NK7uJXmaxbZY5tjo_iBseTkobo3BBc

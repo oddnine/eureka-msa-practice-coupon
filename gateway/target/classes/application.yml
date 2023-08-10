@@ -23,8 +23,8 @@ spring:
           uri: lb://COUPON
           predicates:
             - Path=/coupon/**
-          filters:
-            - AuthenticationFilter
+#          filters:
+#            - AuthenticationFilter
 
         - id: identity
           uri: lb://IDENTITY
