@@ -30,6 +30,12 @@ spring:
           uri: lb://IDENTITY
           predicates:
             - Path=/auth/**
+      default-filters:
+        - name: AuthenticationFilter
+          args:
+            baseMessage: Spring Cloud Gateway Global Filter
+            preLogger: true
+            postLogger: true
 
 jwt:
   header: Authorization

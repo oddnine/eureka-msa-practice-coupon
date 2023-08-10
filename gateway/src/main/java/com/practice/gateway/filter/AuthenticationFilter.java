@@ -1,8 +1,12 @@
 package com.practice.gateway.filter;
 
+import com.practice.gateway.exception.auth.InvalidAuthorizationHeaderFormatException;
+import com.practice.gateway.exception.auth.MissingAuthorizationHeaderException;
+import com.practice.gateway.exception.auth.UnauthorizedAccessException;
 import com.practice.gateway.util.JwtUtil;
+import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
 import org.springframework.http.HttpHeaders;
@@ -13,7 +17,9 @@ import reactor.core.publisher.Mono;
 
 import java.util.List;
 
+// Global Filter 적용
 @Component
+@Slf4j
 public class AuthenticationFilter extends AbstractGatewayFilterFactory<AuthenticationFilter.Config> {
 
     @Autowired
@@ -28,6 +34,7 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
 
     @Override
     public GatewayFilter apply(Config config) {
+        // pre
         return (exchange, chain) -> {
             ServerHttpRequest request = exchange.getRequest();
 
@@ -35,7 +42,7 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
                 List<String> authHeaders = request.getHeaders().get(HttpHeaders.AUTHORIZATION);
 
                 if (authHeaders == null || authHeaders.isEmpty()) {
-                    throw new RuntimeException("Missing authorization header");
+                    throw new MissingAuthorizationHeaderException();
                 }
 
                 String authHeader = authHeaders.get(0);
@@ -46,21 +53,25 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
                     try {
                         jwtUtil.validateToken(token);
                     } catch (Exception e) {
-                        throw new RuntimeException("Unauthorized access to application");
+                        throw new UnauthorizedAccessException();
                     }
                 } else {
-                    throw new RuntimeException("Invalid authorization header format");
+                    throw new InvalidAuthorizationHeaderFormatException();
                 }
             }
 
+            // post
             return chain.filter(exchange).then(Mono.fromRunnable(() -> {
                 ServerHttpResponse response = exchange.getResponse();
-                System.out.println("Custom Post filter: response code: " + response.getStatusCode());
+                log.info("Custom Post filter: response code: " + response.getStatusCode());
             }));
         };
     }
 
+    @Data
     public static class Config {
-
+        private String baseMessage;
+        private boolean preLogger;
+        private boolean postLogger;
     }
 }
